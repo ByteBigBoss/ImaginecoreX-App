@@ -22,6 +22,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e6c7f02a-bfb6-4613-b18f-a1babb3cd4f2"
+      }
+    },
+    "owner": "bytebigboss",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

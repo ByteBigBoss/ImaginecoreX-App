@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {useEffect} from "react";
+import * as SplashScreen from "expo-splash-screen";
+import { useFonts } from "expo-font";
+import SignInScreen from "./screens/SignInScreen";
+import StatusScreen from "./screens/StatusScreen";
+import SignUpScreen from "./screens/SignUpScreen";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+SplashScreen.preventAutoHideAsync();
+
+const App = () => {
+
+  const [loaded, error] = useFonts(
+    {
+      "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
+      "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
+      "Poppins-SemiBold": require("./assets/fonts/Poppins-SemiBold.ttf"),
+      "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
+    
+    }
   );
+
+  useEffect(()=>{
+    if(loaded || error){
+      SplashScreen.hideAsync();
+    }
+  },[loaded, error]);
+
+  if(!loaded && !error){
+    return null;
+  }
+
+  return (
+    <SignUpScreen/>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
