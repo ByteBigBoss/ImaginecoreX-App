@@ -4,7 +4,7 @@ import { getEnv } from "../lib/utils";
 export const getSystemStatus = async () => {
     try {
         const response = await fetch(
-            "http://192.168.8.185:8080/imcrox/" + STATUS_SERVLET,
+            getEnv.IMCROX_API_URL + STATUS_SERVLET,
     
         {
        
