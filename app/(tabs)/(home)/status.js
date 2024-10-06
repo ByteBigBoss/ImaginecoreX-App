@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Text, View } from "react-native";
-import { getSystemStatus } from "../services/getSystemStatus";
-import { StatusStyles } from "../styles/status-styles";
+import { getSystemStatus } from "../../../services/getSystemStatus";
+import { StatusStyles } from "../../../styles/status-styles";
 
 const StatusScreen = () => {
 

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const SignUpStyles = StyleSheet.create({
+export const AuthStyles = StyleSheet.create({
     container:{
         flex:1,
         justifyContent:"center",
@@ -19,9 +19,6 @@ export const SignUpStyles = StyleSheet.create({
         height:100,
         justifyContent:"center",
         alignItems:"center",
-        borderWidth:1,
-        borderStyle:"solid",
-        borderColor:"#0000001f",
         borderRadius:12,
         backgroundColor:"white",
         alignSelf:"center"
@@ -61,9 +58,6 @@ export const SignUpStyles = StyleSheet.create({
     input:{
         width:"100%",
         height:36,
-        borderWidth:1,
-        borderStyle:"solid",
-        borderColor:"#000000f",
         padding:10,
         color:"black",
         borderRadius:6

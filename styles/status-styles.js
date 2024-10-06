@@ -9,7 +9,7 @@ export const StatusStyles = StyleSheet.create({
   },
   status:{
     fontSize: 64,
-    fontFamily:"Montserrat-Bold",
+    fontFamily:"Poppins-Bold",
     color:"#000"
   },
   message:{

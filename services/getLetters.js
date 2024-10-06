@@ -1,15 +1,15 @@
-import { API_URL, STATUS_SERVLET } from "../lib/endpoints";
+import { API_URL, GETLETTERS_SERVLET, } from "../lib/endpoints";
 
-export const getSystemStatus = async () => {
+export const getLetters = async (mobile) => {
     try {
         const response = await fetch(
-            API_URL + STATUS_SERVLET,
-    
-        {
-       
-            credentials: 'include',
-          
-        });
+            API_URL + GETLETTERS_SERVLET + "?mobile=" + mobile,
+
+            {
+
+                credentials: 'include',
+
+            });
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -19,6 +19,6 @@ export const getSystemStatus = async () => {
         return json;
     } catch (error) {
         console.error('Failed to fetch system status:', error);
-        return null; 
+        return null;
     }
 };
