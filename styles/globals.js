@@ -12,6 +12,11 @@ export const Globals = StyleSheet.create({
         borderBottomStyle: "solid",
         borderBottomColor: "#0000001f",
     },
+    borderTop: {
+        borderTopWidth: 1,
+        borderTopStyle: "solid",
+        borderTopColor: "#0000001f",
+    },
     borderError: {
         borderWidth: 1,
         borderStyle: "solid",
@@ -70,6 +75,16 @@ export const Globals = StyleSheet.create({
     justifyStart:{
         justifyContent:"flex-start",
     },
+    objectCover: {
+        objectFit: "cover",
+    },
+    objectContain: {
+        objectFit: "contain",
+    },
+    flexWrap:{
+        flexWrap: "wrap"
+    }
+
 })
 
 export const GlobalDynamics = {
@@ -138,6 +153,18 @@ export const GlobalDynamics = {
         borderTopLeftRadius: radius,
         borderTopRightRadius: radius,
     }),
+    borderRadiusTopLeft: (radius) => ({
+        borderTopLeftRadius: radius,
+    }),
+    borderRadiusTopRight: (radius) => ({
+        borderTopRightRadius: radius,
+    }),
+    borderRadiusBottomLeft: (radius) => ({
+        borderBottomLeftRadius: radius,
+    }),
+    borderRadiusBottomRight: (radius) => ({
+        borderBottomRightRadius: radius,
+    }),
     flex: (number) => ({
         flex: number, 
     }),
@@ -160,6 +187,16 @@ export const GlobalDynamics = {
         borderWidth: border.width,
         borderStyle: border.style,
         borderColor: border.color,
+    }),
+    borderBottom: (border) => ({
+        borderBottomWidth: border.width,
+        borderBottomStyle: border.style,
+        borderBottomColor: border.color,
+    }),
+    borderTop: (border) => ({
+        borderTopWidth: border.width,
+        borderTopStyle: border.style,
+        borderTopColor: border.color,
     }),
     justifyContent: (align) => ({
         justifyContent: align, 
@@ -202,4 +239,5 @@ export const GlobalDynamics = {
     opacity:(number)=>({
         opacity: number
    }),
+
 }

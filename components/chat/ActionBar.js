@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { View, Text, TextInput, Pressable, Alert } from 'react-native';
 import { GlobalDynamics, Globals } from "../../styles/globals"
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -6,16 +6,20 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Feather from '@expo/vector-icons/Feather';
 import { doSendChat } from "../../services/doSendChat";
+import Socket from "../../services/socket";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ActionBar = ({ item }) => {
 
     const [msg, setMsg] = useState("");
     const [showSend, setShowSend] = useState(false);
 
+    const ref = useRef(null);
+
     return (
         <View style={[
             GlobalDynamics.height(60),
-            GlobalDynamics.backgroundColor("white"),
+            GlobalDynamics.backgroundColor("#fafafa"),
             Globals.flexRow,
             Globals.alignCenter,
             GlobalDynamics.paddingHorizontal(16),
@@ -24,6 +28,7 @@ const ActionBar = ({ item }) => {
         ]}>
             <View style={[GlobalDynamics.flex(1), Globals.relative, Globals.justifyCenter]}>
                 <TextInput
+                    ref={ref}
                     onChangeText={(text) => {
                         setMsg(text);
                         if (text.length == 0) {
@@ -41,7 +46,7 @@ const ActionBar = ({ item }) => {
                         GlobalDynamics.borderRadius(20),
                         GlobalDynamics.paddingLeft(38),
                         GlobalDynamics.paddingRight(80),
-                        GlobalDynamics.backgroundColor("#f7f7f7"),
+                        GlobalDynamics.backgroundColor("#fff"),
                     ]}
                     placeholder={"Type your message"}
                 />
@@ -82,19 +87,19 @@ const ActionBar = ({ item }) => {
 
                     {/* USE CAMERA */}
                     {showSend ?
-                    "":
-                    <Pressable
-                        style={[
-                            Globals.center,
+                        "" :
+                        <Pressable
+                            style={[
+                                Globals.center,
 
-                        ]}
-                        onPress={() => {
-                            Alert.alert("Use Camera", "Take Picture");
-                        }}
-                    >
-                        <Feather name="camera" size={20} color="black" />
-                    </Pressable>
-}
+                            ]}
+                            onPress={() => {
+                                Alert.alert("Use Camera", "Take Picture");
+                            }}
+                        >
+                            <Feather name="camera" size={20} color="black" />
+                        </Pressable>
+                    }
                 </View>
             </View>
 
@@ -115,11 +120,30 @@ const ActionBar = ({ item }) => {
                             GlobalDynamics.backgroundColor("#742BFF"),
                         ]}
                         onPress={async () => {
-                            const json = await doSendChat(item.other_user_id, msg);
+                            const ws = new Socket(process.env.EXPO_PUBLIC_SOCKET_ENDPOINT);
+                            let userJson = await AsyncStorage.getItem("user");
+                            let user = JSON.parse(userJson);
 
-                            if(json.success){
-                                setMsg("");
+
+                            if (user) {
+                                const data = {
+                                    action: "SendChat",
+                                    logged_user_id: user.id,
+                                    other_user_id: item.other_user_id,
+                                    message: msg
+                                };
+
+                                ws.socket.onopen = () => {
+                                    ws.sendMessage(JSON.stringify(data));
+
+                                }
                             }
+                            // const json = await doSendChat(item.other_user_id, msg);
+                            // if(json.success){
+                            //     ref.current.clear();
+                            //     setMsg("");
+                            //     console.log("MESSAGE SENDED:: ",json)
+                            // }
                         }}
                     >
                         <Ionicons name="send" size={18} color="white" />

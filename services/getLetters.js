@@ -18,7 +18,7 @@ export const getLetters = async (mobile) => {
         const json = await response.json();
         return json;
     } catch (error) {
-        console.error('Failed to fetch system status:', error);
+        console.error('Failed to fetch Letters:', error);
         return null;
     }
 };

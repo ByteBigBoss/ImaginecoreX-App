@@ -7,6 +7,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { FontAwesome } from "@expo/vector-icons";
 import { doSignUp } from "../../services/doSignUp";
 import { Globals } from "../../styles/globals";
+import { router } from "expo-router";
 
 const SignUpScreen = () => {
 
@@ -111,7 +112,7 @@ const SignUpScreen = () => {
 
             if (json.success) {
               //USER REGISTRATION COMPLETED
-              Alert.alert("Success", json.message);
+             router.replace("/")
              
             } else {
               //PROBLEM OCCURED
@@ -139,7 +140,11 @@ const SignUpScreen = () => {
             <Text style={AuthStyles.pressableText}>Sing Up</Text>
           </Pressable>
 
-          <Pressable style={AuthStyles.secondaryPressable}>
+          <Pressable 
+          onPress={()=>{
+            router.push("/")
+          }}
+          style={AuthStyles.secondaryPressable}>
             <Text style={AuthStyles.secondaryPressableText}>Already have an account? Sign In</Text>
           </Pressable>
 

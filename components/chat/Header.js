@@ -52,7 +52,16 @@ const Header = ({ item }) => (
 
             </View>
 
-            <View style={[
+            <Pressable 
+            
+            onPress={() => {
+                router.push({
+                    pathname: "/(oup)",
+                    params: item
+                });
+            }}
+
+            style={[
                 Globals.relative
             ]}>
                 {/* PROFILE */}
@@ -94,7 +103,7 @@ const Header = ({ item }) => (
                     GlobalDynamics.right(0)
                 ]}
                 ></View>
-            </View>
+            </Pressable>
 
         </View>
     </View>

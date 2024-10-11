@@ -2,6 +2,9 @@ import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Pressable, View } from 'react-native'
+import { router } from "expo-router";
+import { Globals, GlobalDynamics } from "../../../styles/globals"
 
 export default function TabsLayout() {
   return (
@@ -18,7 +21,7 @@ export default function TabsLayout() {
       tabBarActiveTintColor: '#6C00FF'
     }}>
       <Tabs.Screen
-        name="message"
+        name="index"
         options={{
           title: 'Chats',
           tabBarIcon: ({ color, focused }) => (
@@ -34,6 +37,7 @@ export default function TabsLayout() {
           },
           headerTintColor: "#000", // Text color
           headerTitleStyle: { fontWeight: "bold", fontSize: 24 }, // Text style 
+
         }}
       />
       <Tabs.Screen
@@ -42,6 +46,13 @@ export default function TabsLayout() {
           title: 'Moments',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons size={22} name={focused ? 'rocket' : 'rocket-outline'} color={color} />
+          ),
+          headerTintColor: "#000", // Text color
+          headerTitleStyle: { fontWeight: "bold", fontSize: 24 }, // Text style 
+          headerRight: () => (
+            <Pressable onPress={() => router.push("(create)")}>
+              <Ionicons name="create-outline" size={24} color="black" style={{ marginRight: 15 }} />
+            </Pressable>
           ),
         }}
       />
@@ -54,7 +65,9 @@ export default function TabsLayout() {
           tabBarIcon: ({ color, focused }) => (
             <Ionicons size={22} name={focused ? 'square' : 'square-outline'} color={color} />
           ),
+          href:null
         }}
+        
       />
 
 
@@ -64,6 +77,30 @@ export default function TabsLayout() {
           title: 'My Profile',
           tabBarIcon: ({ color, focused }) => (
             <FontAwesome size={22} name={focused ? 'user' : 'user-o'} color={color} />
+          ),
+          headerTintColor: "#000", // Text color
+          headerTitleStyle: { fontWeight: "bold", fontSize: 24 }, // Text style 
+          headerRight: () => (
+            <View
+              style={[
+                Globals.flexRow,
+                Globals.alignCenter,
+                GlobalDynamics.columnGap(6)
+              ]}
+            >
+              <Pressable onPress={() => router.push({
+                pathname: "/(profile)/edit",
+                params: {tab:"Edit"}
+              })}>
+                <MaterialCommunityIcons name="pencil-outline" size={24} color="black" style={{ marginRight: 15 }} />
+              </Pressable>
+              <Pressable onPress={() => router.push({
+                pathname: "/(profile)",
+                params: {tab:"Settings"}
+              })}>
+                <Ionicons name="settings-outline" size={24} color="black" style={{ marginRight: 15 }} />
+              </Pressable>
+            </View>
           ),
         }}
       />

@@ -1,13 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL, LOAD_CHAT_DATA_SERVLET } from "../lib/endpoints";
+import { API_URL, LOAD_FRIENDS_SERVLET } from "../lib/endpoints";
 
-export const getChatData = async () => {
+export const getFriends = async () => {
     try {
         const userJson = await AsyncStorage.getItem("user");
         const user = JSON.parse(userJson);
 
         const response = await fetch(
-            API_URL+LOAD_CHAT_DATA_SERVLET+"?id="+user.id,
+            API_URL+LOAD_FRIENDS_SERVLET+"?id="+user.id,
             {
                 credentials: 'include',
             }
@@ -21,7 +21,7 @@ export const getChatData = async () => {
         return json;
 
     } catch (error) {
-        console.error('FAILED TO FETCH CHAT LIST:', error);
+        console.error('FAILED TO FETCH USER FRIENDS:', error);
         return null;
     }
 };
